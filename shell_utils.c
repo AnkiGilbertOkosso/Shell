@@ -8,7 +8,7 @@
  */
 int is_interactive(info_t *info)
 {
-	return (isatty(fileno(atdin)) && info->readfd <= 2);
+	return (isatty(fileno(stdin)) && info->readfd <= 2);
 }
 /**
  * is_delim - checks if a character is a delimiter
@@ -31,7 +31,7 @@ int is_delim(char c, char *delimiter)
  * @c: the character input
  * Return: 1 if c is alphabetic, 0 otherwise
  */
-int _isalpha(char c)
+int _isalpha(int c)
 {
 	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
 		return (1);
@@ -55,7 +55,7 @@ int _myatoi(char *s)
 
 	for (; s[i] != '\0'; ++i)
 	{
-		if (s[i] < '0' || s[i]i > '9')
+		if (s[i] < '0' || s[i] > '9')
 			break;
 		result = result * 10 + (s[i] - '0');
 	}
