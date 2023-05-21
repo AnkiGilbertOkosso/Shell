@@ -12,7 +12,7 @@ void shell_loop(runtime_data *data)
 
     while (loop == 1)
     {
-        write(STDIN_FILENO, "$ ", 4);
+        printf("#cisfun$ ");
         input = read_line(&eof);
         if (eof != -1)
         {
