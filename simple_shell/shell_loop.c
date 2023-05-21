@@ -48,7 +48,7 @@ void shell_loop(runtime_data *data)
     loop = 1;
     while (loop == 1)
     {
-        write(STDIN_FILENO, "^-^ ", 4);
+        write(STDIN_FILENO, "$ ", 4);
         input = read_line(&eof);
         if (eof != -1)
         {
