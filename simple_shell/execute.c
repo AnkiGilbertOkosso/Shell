@@ -29,6 +29,12 @@ int _execute(runtime_data *data)
 int (*get_builtin(char *command))(runtime_data *)
 {
 	builtin_cmd builtin[] = {
+		{ "env", _env },
+		{ "exit", __exit },
+		{ "setenv", _setenv },
+		{ "unsetenv", _unsetenv },
+		{ "cd", _cd },
+		{ "help", _help },
 		{ NULL, NULL }
 	};
 	int i;
