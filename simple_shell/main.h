@@ -87,6 +87,15 @@ typedef struct builtin
 
 
 
+typedef struct alias_S {
+    char *name;
+    char *value;
+    struct alias_s *next;
+} alias_t;
+
+alias_t *alias_list = NULL;
+
+
 /*shell_loop.c */
 void shell_loop(runtime_data *data);
 char *read_line(int *eof);
@@ -198,6 +207,7 @@ void cd_home(runtime_data *data);
 int _cd(runtime_data *data);
 int __exit(runtime_data *data);
 int _help(runtime_data *data);
+void _alias(char **args) ;
 
 
 /* help1.c */
@@ -215,6 +225,13 @@ void alias_help(void);
 /* getline.c */
 void assign_line(char **lineptr, size_t *line_size, char *str, size_t buf_size);
 ssize_t _getline(char **lineptr, size_t *size, FILE *stream);
+
+/* alias_handler.c */
+alias_t *create_alias(const char *name, const char *value);
+void free_alias_list(alias_t *alias_list);
+void set_alias(const char *name, const char *value);
+void unset_alias(const char *name);
+void print_alias();
 
 
 

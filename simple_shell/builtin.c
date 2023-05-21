@@ -105,3 +105,43 @@ int _help(runtime_data *data)
 	return (1);
 }
 
+#include <stdio.h>
+#include <string.h>
+
+/* Function to handle the 'alias' built-in command */ 
+void _alias(char **args) 
+{
+    char *arg, *equalSign, *value;
+    alias_t *current;
+    int i = 1;
+
+    if (args[1] == NULL) {
+        print_alias();
+    } else {
+        while (args[i] != NULL) {
+            arg = args[i];
+
+            equalSign = _strchr(arg, '=');
+            if (equalSign != NULL) {
+                *equalSign = '\0';
+                set_alias(arg, equalSign + 1);
+            } else {
+                value = NULL;
+                current = alias_list;
+                while (current != NULL) {
+                    if (_strcmp(current->name, arg) == 0) {
+                        value = current->value;
+                        break;
+                    }
+                    current = current->next;
+                }
+                if (value != NULL) {
+                    printf("%s='%s'\n", arg, value);
+                }
+            }
+
+            i++;
+        }
+    }
+    free_alias_list(alias_list);
+}
