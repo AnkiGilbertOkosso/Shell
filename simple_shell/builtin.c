@@ -71,3 +71,37 @@ int __exit(runtime_data *data)
 
     return (0);
 }
+
+
+/**
+ * _help - the function that retrieves help messages according builtin
+ * @data: the data structure (tokens and input)
+ * Return: Return 0
+*/
+int _help(runtime_data *data)
+{
+
+	if (data->tokens[1] == 0)
+		general_help();
+	else if (_strcmp(data->tokens[1], "setenv") == 0)
+		setenv_help();
+	else if (_strcmp(data->tokens[1], "env") == 0)
+		env_help();
+	else if (_strcmp(data->tokens[1], "unsetenv") == 0)
+		unsetenv_help();
+	else if (_strcmp(data->tokens[1], "help") == 0)
+		help();
+	else if (_strcmp(data->tokens[1], "exit") == 0)
+		exit_help();
+	else if (_strcmp(data->tokens[1], "cd") == 0)
+		cd_help();
+	else if (_strcmp(data->tokens[1], "alias") == 0)
+		alias_help();
+	else
+		write(STDERR_FILENO, data->tokens[0],
+		      _strlen(data->tokens[0]));
+
+	data->status = 0;
+	return (1);
+}
+

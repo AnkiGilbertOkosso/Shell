@@ -197,6 +197,8 @@ void cd_home(runtime_data *data);
 /* builtin.c */
 int _cd(runtime_data *data);
 int __exit(runtime_data *data);
+int _help(runtime_data *data);
+
 
 /* help1.c */
 void general_help(void);
@@ -204,5 +206,16 @@ void setenv_help(void);
 void unsetenv_help(void);
 void env_help(void);
 void exit_help(void);
+
+/* help2.c */
+void help(void);
+void cd_help(void);
+void alias_help(void);
+
+/* getline.c */
+void assign_line(char **lineptr, size_t *line_size, char *str, size_t buf_size);
+ssize_t _getline(char **lineptr, size_t *size, FILE *stream);
+
+
 
 #endif
