@@ -35,7 +35,8 @@ char *int_to_string(int num)
 {
     int len = 0;
     int n = num;
-    int sign = 0;
+    int sign = 0, i;
+    char *str;
 
     if (n < 0) {
         sign = 1;
@@ -48,8 +49,8 @@ char *int_to_string(int num)
     if (sign) {
         len++;
     }
-    char* str = (char*)malloc((len + 1) * sizeof(char));
-    int i = len - 1;
+    str = (char*)malloc((len + 1) * sizeof(char));
+    i = len - 1;
     while (n != 0) {
         str[i] = '0' + (n % 10);
         n /= 10;
