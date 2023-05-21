@@ -1,4 +1,39 @@
 #include "main.h"
+
+/**
+ * commet_out - deletes comments from input
+ *
+ * @str: input string
+ * Return: input without the comments
+ */
+char *commet_out(char *str)
+{
+	int a, b;
+
+	b = 0;
+	for (a = 0; str[a]; a++)
+	{
+		if (str[a] == '#')
+		{
+			if (a == 0)
+			{
+				free(str);
+				return (NULL);
+			}
+
+			if (str[a - 1] == ' ' || str[a - 1] == '\t' || str[a - 1] == ';')
+				b = a;
+		}
+	}
+
+	if (b != 0)
+	{
+		str = _realloc(str, a, b + 1);
+		str[b] = '\0';
+	}
+
+	return (str);
+}
 /**
  * shell_loop - Loop of the shell
  * @data: data relevants (arguments, input, tokens)
@@ -7,15 +42,17 @@
  */
 void shell_loop(runtime_data *data)
 {
-    int loop = 1, eof;
+    int loop, eof;
     char *input;
 
+    loop = 1;
     while (loop == 1)
     {
-        printf("#cisfun$ ");
+        write(STDIN_FILENO, "^-^ ", 4);
         input = read_line(&eof);
         if (eof != -1)
         {
+            input = commet_out(input);
             if (input == NULL)
                 continue;
             if (syntax_error(data, input) == 1)

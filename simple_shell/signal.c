@@ -7,5 +7,5 @@
 void get_sigint(int signal)
 {
 	(void)signal;
-	write(STDOUT_FILENO, "\n^-^ ", 5);
+	write(STDOUT_FILENO, "\n$ ", 5);
 }

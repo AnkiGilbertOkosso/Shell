@@ -89,6 +89,7 @@ typedef struct builtin
 /*shell_loop.c */
 void shell_loop(runtime_data *data);
 char *read_line(int *eof);
+char *commet_out(char *str);
 
 /* signal.c */ 
 void get_sigint(int signal);
