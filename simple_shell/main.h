@@ -15,6 +15,7 @@
 #define BUFSIZE 1024
 #define TOK_BUFSIZE 128
 #define TOK_DELIM " \t\r\n\a"
+#define PATH_MAX 4096
 
 /* Points to an array of pointers to strings called the "environment" */
 extern char **environ;
@@ -181,5 +182,27 @@ int cmp_env_var(const char *env_name, const char *str);
 char *_getenv(const char *str, char **_environ);
 int _env(runtime_data *data);
 
+/* environ2.c */
+char *copy_data(char *env_name, char *env_val);
+void set_env(char *name, char *env_val, runtime_data *data);
+int _setenv(runtime_data *data);
+int _unsetenv(runtime_data *data);
+
+/* cd_handler.c */
+void cd_parent(runtime_data *data);
+void cd_prev(runtime_data *data);
+void cd_to(runtime_data *data);
+void cd_home(runtime_data *data);
+
+/* builtin.c */
+int _cd(runtime_data *data);
+int __exit(runtime_data *data);
+
+/* help1.c */
+void general_help(void);
+void setenv_help(void);
+void unsetenv_help(void);
+void env_help(void);
+void exit_help(void);
 
 #endif
