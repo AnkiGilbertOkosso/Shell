@@ -12,7 +12,7 @@ alias_t *create_alias(const char *name, const char *value)
 
 
 /* Function to create a new alias node */
-void free_alias_list(alias_t *alias_list)
+void free_alias_list(runtime_data *data)
 {
     alias_t *current = alias_list;
     alias_t *next;

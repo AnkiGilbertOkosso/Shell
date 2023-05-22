@@ -228,7 +228,7 @@ ssize_t _getline(char **lineptr, size_t *size, FILE *stream);
 
 /* alias_handler.c */
 alias_t *create_alias(const char *name, const char *value);
-void free_alias_list(alias_t *alias_list);
+void free_alias_list(runtime_data *data);
 void set_alias(const char *name, const char *value);
 void unset_alias(const char *name);
 void print_alias();
