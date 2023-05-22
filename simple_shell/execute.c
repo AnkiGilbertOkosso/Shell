@@ -35,7 +35,6 @@ int (*get_builtin(char *command))(runtime_data *)
 		{ "unsetenv", _unsetenv },
 		{ "cd", _cd },
 		{ "help", _help },
-		{ "alias", _alias },
 		{ NULL, NULL }
 	};
 	int i;
