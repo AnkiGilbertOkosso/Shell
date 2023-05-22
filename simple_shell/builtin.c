@@ -105,37 +105,54 @@ int _help(runtime_data *data)
 	return (1);
 }
 
-#include <stdio.h>
-#include <string.h>
+/**
+ * get_alias_value - Retrieves the value associated with an alias name
+ * @name: The alias name
+ * Return: The value associated with the alias, or NULL if not found
+ */
+char *get_alias_value(const char *name)
+{
+    alias_t *current = alias_list;
+
+    while (current != NULL) {
+        if (strcmp(current->name, name) == 0) {
+            return current->value;
+        }
+        current = current->next;
+    }
+
+    return NULL; // Alias not found
+}
+
 
 /* Function to handle the 'alias' built-in command */ 
-void _alias(char **args) 
+void _alias(char **args)
 {
     char *arg, *equalSign, *value;
     alias_t *current;
     int i = 1;
 
-    if (args[1] == NULL) {
+    if (args[1] == NULL)
+    {
         print_alias();
-    } else {
-        while (args[i] != NULL) {
+    }
+    else
+    {
+        while (args[i] != NULL)
+        {
             arg = args[i];
 
-            equalSign = _strchr(arg, '=');
-            if (equalSign != NULL) {
+            equalSign = strchr(arg, '=');
+            if (equalSign != NULL)
+            {
                 *equalSign = '\0';
                 set_alias(arg, equalSign + 1);
-            } else {
-                value = NULL;
-                current = alias_list;
-                while (current != NULL) {
-                    if (_strcmp(current->name, arg) == 0) {
-                        value = current->value;
-                        break;
-                    }
-                    current = current->next;
-                }
-                if (value != NULL) {
+            }
+            else
+            {
+                value = get_alias_value(arg);
+                if (value != NULL)
+                {
                     printf("%s='%s'\n", arg, value);
                 }
             }
@@ -143,5 +160,4 @@ void _alias(char **args)
             i++;
         }
     }
-    free_alias_list(alias_list);
 }

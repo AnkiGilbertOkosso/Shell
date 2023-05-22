@@ -208,6 +208,8 @@ int _cd(runtime_data *data);
 int __exit(runtime_data *data);
 int _help(runtime_data *data);
 void _alias(char **args) ;
+char *get_alias_value(const char *name);
+
 
 
 /* help1.c */
@@ -228,7 +230,7 @@ ssize_t _getline(char **lineptr, size_t *size, FILE *stream);
 
 /* alias_handler.c */
 alias_t *create_alias(const char *name, const char *value);
-void free_alias_list(runtime_data *data);
+void free_alias_list(alias_t *alias_list);
 void set_alias(const char *name, const char *value);
 void unset_alias(const char *name);
 void print_alias();
