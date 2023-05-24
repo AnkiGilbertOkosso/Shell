@@ -139,16 +139,20 @@ char *replaced_string(var_list **head, char *str, char *new_str, int new_len)
 char *replace_var(char *str, runtime_data *data)
 {
     var_list *head, *index;
-    char *new_str;
+    char *status, *new_str;
     int old_len, new_len;
+    int status_value = data->status;
 
+    status = int_to_string(status_value);
     head = NULL;
 
-    old_len = _strlen(str);
-    search_vars(&head, str, data->status, data);
+    old_len = search_vars(&head, str, status_value, data);
 
     if (head == NULL)
+    {
+        free(status);
         return str;
+    }
 
     index = head;
     new_len = 0;
@@ -166,6 +170,7 @@ char *replace_var(char *str, runtime_data *data)
 
     new_str = replaced_string(&head, str, new_str, new_len);
 
+    free(status);
     free_var_list(&head);
 
     return (new_str);
