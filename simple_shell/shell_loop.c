@@ -62,7 +62,7 @@ void shell_loop(runtime_data *data)
                 continue;
             }
             input = replace_var(input, data);
-            if (strncmp(input, "alias", 5) == 0) {
+            if (_strncmp(input, "alias", 5) == 0) {
                 parseAliasCommand(input);
                 free(input);
                 continue;

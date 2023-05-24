@@ -15,7 +15,6 @@ int numAliases = 0;
 
 void addAlias(char* alias, char* command) 
 {
-    // Check if the alias already exists
     int i;
     for (i = 0; i < numAliases; i++) {
         if (_strcmp(alias, aliases[i].alias) == 0) {
@@ -37,12 +36,13 @@ void addAlias(char* alias, char* command)
 
 void printAliases()
 {
+    int i;
+
     if (numAliases == 0) {
         printf("No aliases defined.\n");
         return;
     }
 
-    int i;
     for (i = 0; i < numAliases; i++) {
         printf("%s='%s'\n", aliases[i].alias, aliases[i].command);
     }
@@ -64,6 +64,7 @@ void printAlias(char* alias)
 void removeAlias(char* alias)
 {
     int i;
+
     for (i = 0; i < numAliases; i++) {
         if (_strcmp(alias, aliases[i].alias) == 0) {
             for (; i < numAliases - 1; i++) {
@@ -83,6 +84,10 @@ void removeAlias(char* alias)
 int parseAliasCommand(char* input)
 {
     char* token = _strtok(input, " \t");
+    char* equal = _strchr(token, '=');
+    char* alias = token;
+    char* command = equal + 1;
+
 
     if (token == NULL) {
         printAliases();
@@ -96,13 +101,11 @@ int parseAliasCommand(char* input)
             return 0;
         }
 
-        char* equal = _strchr(token, '=');
         if (equal != NULL) {
             *equal = '\0';
-            char* alias = token;
-            char* command = equal + 1;
+            
 
-            if (_strlen(alias) == 0 || strlen(command) == 0) {
+            if (_strlen(alias) == 0 || _strlen(command) == 0) {
                 printf("Invalid syntax. Usage: alias [name[='value'] ...]\n");
                 return 0;
             }
@@ -112,7 +115,7 @@ int parseAliasCommand(char* input)
             printAlias(token);
         }
     } else if (_strcmp(token, "unalias") == 0) {
-        token = strtok(NULL, " \t");
+        token = _strtok(NULL, " \t");
         if (token == NULL) {
             printf("Invalid syntax. Usage: unalias <alias_name>\n");
             return 0;
