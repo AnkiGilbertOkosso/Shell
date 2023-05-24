@@ -85,8 +85,8 @@ int parseAliasCommand(char* input)
 {
     char* token = _strtok(input, " \t");
     char* equal = _strchr(token, '=');
-    char* alias = token;
-    char* command = equal + 1;
+    /*char* alias = token;
+    char* command = equal + 1;*/
 
 
     if (token == NULL) {
@@ -95,10 +95,10 @@ int parseAliasCommand(char* input)
     }
 
     if (_strcmp(token, "alias") == 0) {
-        token = strtok(NULL, " \t");
+        token = _strtok(NULL, " \t");
         if (token == NULL) {
             printAliases();
-            return;
+            return 0;
         } else if (_strchr(token, '=') != NULL) {
             while (token != NULL) {
                 addAlias(token, token + _strlen(token) + 1);
