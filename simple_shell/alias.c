@@ -99,7 +99,7 @@ int parseAliasCommand(char* input)
         if (token == NULL) {
             printAliases();
             return 0;
-        } else if (_strchr(token, '=') != NULL) {
+        } else if (equal != NULL) {
             while (token != NULL) {
                 addAlias(token, token + _strlen(token) + 1);
                 token = _strtok(NULL, " \t");
