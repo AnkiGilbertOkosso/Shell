@@ -52,7 +52,7 @@ void search_env(var_list **list, char *str, runtime_data *data)
  */
 int search_vars(var_list **head, char *str, int status, runtime_data *data)
 {
-	int x,bol;
+	int x, bol;
 
 	
 	bol = _strlen(data->pid);
@@ -101,37 +101,30 @@ char *replaced_string(var_list **head, char *str, char *new_str, int new_len)
 	for (c = a = 0; a < new_len; a++)
 	{
 		if (str[c] == '$')
-		{
-			if (!(index->var_len) && !(index->len_value))
-			{
-				new_str[a] = str[c];
-				c++;
-			}
-			else if (index->var_len && !(index->len_value))
-			{
-				for (b = 0; b < index->var_len; b++)
-					c++;
-				a--;
-			}
-			else
-			{
-				for (b = 0; b < index->len_value; b++)
-				{
-					new_str[a] = index->value[b];
-					a++;
-				}
-				c += (index->var_len);
-				a--;
-			}
-			index = index->next;
-		}
-		else
-		{
-			new_str[a] = str[c];
-			c++;
-		}
-	}
-
+        {
+            if (index != NULL && index->value != NULL)
+            {
+                for (b = 0; b < index->len_value; b++)
+                {
+                    new_str[a] = index->value[b];
+                    a++;
+                }
+                c += (index->var_len);
+                a--;
+                index = index->next;
+            }
+            else
+            {
+                c++;
+                a--;
+            }
+        }
+        else
+        {
+            new_str[a] = str[c];
+            c++;
+        }
+    }
 	return (new_str);
 }
 
