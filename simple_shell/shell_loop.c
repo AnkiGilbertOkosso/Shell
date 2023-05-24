@@ -62,6 +62,11 @@ void shell_loop(runtime_data *data)
                 continue;
             }
             input = replace_var(input, data);
+            if (strncmp(input, "alias", 5) == 0) {
+                parseAliasCommand(input);
+                free(input);
+                continue;
+            }
             loop = split_cmd(data, input);
             data->lineCounter += 1;
             free(input);

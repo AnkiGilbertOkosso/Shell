@@ -122,6 +122,18 @@ int get_len(int num);
 char *_strtok(char str[], const char *delimiter);
 int _charscmp(char str[], const char *delimiter);
 
+/* strings4.c */
+char* _strncpy(char* destination, const char* source, size_t num);
+size_t _strcspn(const char* str, const char* charset);
+int _strncmp(const char* str1, const char* str2, size_t n);
+
+/* alias.c */
+void addAlias(char* alias, char* command);
+void printAliases();
+void printAlias(char* alias);
+void removeAlias(char* alias);
+int parseAliasCommand(char* input);
+
 /* syntax_error.c */
 int char_dup(char *str, int n);
 int find_syntax_error(char *str, int i, char last_char);
