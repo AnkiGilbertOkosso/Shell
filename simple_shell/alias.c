@@ -52,7 +52,7 @@ void printAlias(char* alias)
 {
     int i;
     for (i = 0; i < numAliases; i++) {
-        if (_strcmp(alias, aliases[i].alias) == 0) {
+        if (_strcmp(alias, aliases[i].alias, MAX_ALIAS_LENGTH - 1) == 0) {
             printf("%s='%s'\n", aliases[i].alias, aliases[i].command);
             return;
         }
