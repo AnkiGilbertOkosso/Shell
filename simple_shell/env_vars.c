@@ -50,11 +50,11 @@ void search_env(var_list **list, char *str, runtime_data *data)
  * @data: data structure
  * Return: return x
  */
-int search_vars(var_list **head, char *str, char *status, runtime_data *data)
+int search_vars(var_list **head, char *str, int status, runtime_data *data)
 {
-	int x, list, bol;
+	int x,bol;
 
-	list = _strlen(status);
+	
 	bol = _strlen(data->pid);
 
 	for (x = 0; str[x]; x++)
@@ -62,7 +62,7 @@ int search_vars(var_list **head, char *str, char *status, runtime_data *data)
 		if (str[x] == '$')
 		{
 			if (str[x + 1] == '?')
-				add_var_node(head, 2, status, list), x++;
+				add_var_node(head, 2,  int_to_string(status),  _strlen(int_to_string(status))), x++;
 			else if (str[x + 1] == '$')
 				add_var_node(head, 2, data->pid, bol), x++;
 			else if (str[x + 1] == '\n')
@@ -145,41 +145,35 @@ char *replaced_string(var_list **head, char *str, char *new_str, int new_len)
  */
 char *replace_var(char *str, runtime_data *data)
 {
-	var_list *head, *index;
-	char *status, *new_str;
-	int old_len, new_len;
+    var_list *head, *index;
+    char *new_str;
+    int old_len, new_len;
 
-	status = int_to_string(data->status);
-	head = NULL;
+    head = NULL;
 
-	old_len = search_vars(&head, str, status, data);
+    old_len = _strlen(str);
+    search_vars(&head, str, data->status, data);
 
-	if (head == NULL)
-	{
-		free(status);
-		return (str);
-	}
+    if (head == NULL)
+        return str;
 
-	index = head;
-	new_len = 0;
+    index = head;
+    new_len = 0;
 
-	while (index != NULL)
-	{
-		new_len += (index->len_value - index->var_len);
-		index = index->next;
-	}
+    while (index != NULL)
+    {
+        new_len += (index->len_value - index->var_len);
+        index = index->next;
+    }
 
-	new_len += old_len;
+    new_len += old_len;
 
-	new_str = malloc(sizeof(char) * (new_len + 1));
-	new_str[new_len] = '\0';
+    new_str = malloc(sizeof(char) * (new_len + 1));
+    new_str[new_len] = '\0';
 
-	new_str = replaced_string(&head, str, new_str, new_len);
+    new_str = replaced_string(&head, str, new_str, new_len);
 
-	free(str);
-	free(status);
-	free_var_list(&head);
+    free_var_list(&head);
 
-	return (new_str);
+    return (new_str);
 }
-
