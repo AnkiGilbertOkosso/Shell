@@ -22,7 +22,7 @@ var_list *add_var_node(var_list **head, int len_var, char *val, int len_val)
 		new->len_value = 0;
 		
 		if (val != NULL && len_val > 0) {
-			new->value = strdup(val); // Make a copy of the string
+			new->value = _strdup(val); 
 			new->len_value = len_val;
 		}
 		
