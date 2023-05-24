@@ -95,24 +95,20 @@ int parseAliasCommand(char* input)
     }
 
     if (_strcmp(token, "alias") == 0) {
-        token = _strtok(NULL, " \t");
+        token = strtok(NULL, " \t");
         if (token == NULL) {
             printAliases();
-            return 0;
-        }
-
-        if (equal != NULL) {
-            *equal = '\0';
-            
-
-            if (_strlen(alias) == 0 || _strlen(command) == 0) {
-                printf("Invalid syntax. Usage: alias [name[='value'] ...]\n");
-                return 0;
+            return;
+        } else if (_strchr(token, '=') != NULL) {
+            while (token != NULL) {
+                addAlias(token, token + _strlen(token) + 1);
+                token = _strtok(NULL, " \t");
             }
-
-            addAlias(alias, command);
         } else {
-            printAlias(token);
+            while (token != NULL) {
+                printAlias(token);
+                token = _strtok(NULL, " \t");
+            }
         }
     } else if (_strcmp(token, "unalias") == 0) {
         token = _strtok(NULL, " \t");
