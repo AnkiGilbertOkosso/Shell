@@ -54,7 +54,7 @@ int search_vars(var_list **head, char *str, int status, runtime_data *data)
 {
 	int x, bol;
 
-	
+	status = data->status;
 	bol = _strlen(data->pid);
 
 	for (x = 0; str[x]; x++)
