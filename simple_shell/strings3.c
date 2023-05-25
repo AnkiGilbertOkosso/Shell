@@ -35,33 +35,46 @@ char *int_to_string(int num)
 {
     int len = 0;
     int n = num;
-    int sign = 0, i;
+    int sign = 0;
     char *str;
 
     if (n < 0) {
         sign = 1;
         n = -n;
     }
-    while (num != 0) {
-        len++;
-        num /= 10;
+
+    if (n == 0) {
+        len = 1;
+    } else {
+        while (n != 0) {
+            len++;
+            n /= 10;
+        }
     }
+
     if (sign) {
-        len++;
+        len++;  
     }
     str = (char*)malloc((len + 1) * sizeof(char));
-    i = len - 1;
-    while (n != 0) {
-        str[i] = '0' + (n % 10);
-        n /= 10;
-        i--;
+
+    int i = len - 1;
+    if (num == 0) {
+        str[i--] = '0';
+    } else {
+        while (num != 0) {
+            str[i--] = '0' + (num % 10);
+            num /= 10;
+        }
     }
+
     if (sign) {
-        str[0] = '-';
+        str[i] = '-';
     }
+
     str[len] = '\0';
 
     return (str);
+
 }
 
 

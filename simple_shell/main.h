@@ -15,7 +15,7 @@
 #define BUFSIZE 1024
 #define TOK_BUFSIZE 128
 #define TOK_DELIM " \t\r\n\a"
-#define PATH_MAX 4096
+/* #define PATH_MAX 4096 */
 
 /* Points to an array of pointers to strings called the "environment" */
 extern char **environ;
